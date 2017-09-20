@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 
@@ -93,6 +94,10 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         layout = LayoutFactory.create(this, activityParams);
         if (hasBackgroundColor()) {
             layout.asView().setBackgroundColor(AppStyle.appStyle.screenBackgroundColor.getColor());
+        }
+        String screenBackgroundImageName = activityParams.screenParams.styleParams.screenBackgroundImageName;
+        if (screenBackgroundImageName != null) {
+            layout.asView().setBackgroundResource(this.getResources().getIdentifier(screenBackgroundImageName, "drawable", this.getPackageName()));
         }
         setContentView(layout.asView());
     }
