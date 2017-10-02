@@ -64,26 +64,22 @@ public class NavigationReactGateway implements ReactGateway {
 	}
 
 	public void onDestroyApp(Activity activity) {
-		// activity can be null here when we start the app for the first time after a phone restart
-		// turn on don't keep activity to test this
-		if (NavigationApplication.instance.clearHostOnActivityDestroy() || activity == null) {
-			getReactInstanceManager().onHostDestroy();
-		} else if (hasStartedCreatingContext()) {
-			getReactInstanceManager().onHostDestroy(activity);
-		}
-		if (NavigationApplication.instance.clearHostOnActivityDestroy()) {
-			host.clear();
-		}
-	}
+        if (NavigationApplication.instance.clearHostOnActivityDestroy()) {
+            getReactInstanceManager().onHostDestroy();
+        } else if (hasStartedCreatingContext()) {
+            getReactInstanceManager().onHostDestroy(activity);
+        }
+        if (NavigationApplication.instance.clearHostOnActivityDestroy()) {
+            host.clear();
+        }
+    }
 
 	public void onPauseActivity(Activity activity) {
-		// activity can be null here when we start the app for the first time after a phone restart
-		// turn on don't keep activity to test this
-		if (NavigationApplication.instance.clearHostOnActivityDestroy() || activity == null) {
-			getReactInstanceManager().onHostPause();
-		} else if (hasStartedCreatingContext()) {
-			getReactInstanceManager().onHostPause(activity);
-		}
+        if (NavigationApplication.instance.clearHostOnActivityDestroy()) {
+            getReactInstanceManager().onHostPause();
+        } else if (hasStartedCreatingContext()) {
+		    getReactInstanceManager().onHostPause(activity);
+        }
 		jsDevReloadHandler.onPauseActivity();
 	}
 
